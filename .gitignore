@@ -1,27 +1,26 @@
-# OS
+# ===== OS =====
 .DS_Store
 Thumbs.db
 
-# Java
+# ===== Java =====
 *.class
 *.jar
 *.war
 *.ear
 
-# Maven
+# ===== Maven (optional) =====
 target/
 
-# NetBeans
-nbproject/
+# ===== NetBeans =====
 nbproject/private/
 build/
 dist/
 
-# Node
+# ===== Node =====
 node_modules/
 
-# Logs
+# ===== Logs =====
 *.log
 
-# Env
+# ===== Env =====
 .env
