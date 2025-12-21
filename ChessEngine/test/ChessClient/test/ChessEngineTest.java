@@ -1,4 +1,4 @@
-package chessengine.test;
+package ChessClient.test;
 
 import ChessClient.ChessGame.piece.King;
 import ChessClient.ChessGame.piece.PieceColor;
