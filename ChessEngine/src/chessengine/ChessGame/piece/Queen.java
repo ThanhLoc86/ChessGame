@@ -1,14 +1,14 @@
-package chessengine.piece;
+package chessengine.ChessGame.piece;
 
-import chessengine.board.Board;
-import chessengine.board.Square;
-import chessengine.move.Move;
-import chessengine.move.MoveType;
+import chessengine.ChessGame.board.Board;
+import chessengine.ChessGame.board.Square;
+import chessengine.ChessGame.move.Move;
+import chessengine.ChessGame.move.MoveType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bishop extends Piece {
-    public Bishop(PieceColor color) {
+public class Queen extends Piece {
+    public Queen(PieceColor color) {
         super(color);
     }
 
@@ -17,7 +17,10 @@ public class Bishop extends Piece {
         List<Move> moves = new ArrayList<>();
         int r = from.getRow();
         int c = from.getCol();
-        int[][] directions = { {1,1}, {1,-1}, {-1,1}, {-1,-1} };
+        int[][] directions = {
+            {1,0}, {-1,0}, {0,1}, {0,-1},
+            {1,1}, {1,-1}, {-1,1}, {-1,-1}
+        };
         for (int[] d : directions) {
             int dr = d[0], dc = d[1];
             int nr = r + dr, nc = c + dc;
@@ -40,14 +43,14 @@ public class Bishop extends Piece {
 
     @Override
     public String getName() {
-        return "Bishop";
+        return "Queen";
     }
 
     @Override
     public Piece copy() {
-        Bishop b = new Bishop(this.color);
-        b.setHasMoved(this.hasMoved);
-        return b;
+        Queen q = new Queen(this.color);
+        q.setHasMoved(this.hasMoved);
+        return q;
     }
 }
 

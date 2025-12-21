@@ -1,10 +1,17 @@
 package chessengine.test;
 
-import chessengine.board.Board;
-import chessengine.game.Game;
-import chessengine.move.Move;
-import chessengine.move.MoveType;
-import chessengine.piece.*;
+import chessengine.ChessGame.piece.King;
+import chessengine.ChessGame.piece.PieceColor;
+import chessengine.ChessGame.piece.Knight;
+import chessengine.ChessGame.piece.Pawn;
+import chessengine.ChessGame.piece.Bishop;
+import chessengine.ChessGame.piece.Queen;
+import chessengine.ChessGame.piece.Rook;
+import chessengine.ChessGame.piece.PieceType;
+import chessengine.ChessGame.board.Board;
+import chessengine.ChessGame.game.Game;
+import chessengine.ChessGame.move.Move;
+import chessengine.ChessGame.move.MoveType;
 import org.junit.Test;
 
 import java.lang.reflect.Field;

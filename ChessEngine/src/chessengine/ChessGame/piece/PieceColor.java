@@ -1,4 +1,4 @@
-package chessengine.piece;
+package chessengine.ChessGame.piece;
 
 public enum PieceColor {
     WHITE,

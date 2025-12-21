@@ -1,8 +1,8 @@
-package chessengine.piece;
+package chessengine.ChessGame.piece;
 
-import chessengine.board.Board;
-import chessengine.board.Square;
-import chessengine.move.Move;
+import chessengine.ChessGame.board.Board;
+import chessengine.ChessGame.board.Square;
+import chessengine.ChessGame.move.Move;
 import java.util.List;
 
 public abstract class Piece {

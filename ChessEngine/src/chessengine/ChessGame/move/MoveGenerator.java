@@ -1,8 +1,8 @@
-package chessengine.move;
+package chessengine.ChessGame.move;
 
-import chessengine.board.Board;
-import chessengine.board.Square;
-import chessengine.piece.Piece;
+import chessengine.ChessGame.board.Board;
+import chessengine.ChessGame.board.Square;
+import chessengine.ChessGame.piece.Piece;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class MoveGenerator {
                 Square sq = board.getSquare(r, c);
                 if (!sq.isEmpty()) {
                     Piece p = sq.getPiece();
-                    boolean isWhitePiece = p.getColor() == chessengine.piece.PieceColor.WHITE;
+                    boolean isWhitePiece = p.getColor() == chessengine.ChessGame.piece.PieceColor.WHITE;
                     if ((forWhite && isWhitePiece) || (!forWhite && !isWhitePiece)) {
                         result.addAll(p.generateLegalMoves(sq, board));
                     }
