@@ -1,9 +1,9 @@
-package ChessClient.ChessGame.piece;
+package chessengine.ChessGame.piece;
 
-import ChessClient.ChessGame.board.Board;
-import ChessClient.ChessGame.board.Square;
-import ChessClient.ChessGame.move.Move;
-import ChessClient.ChessGame.move.MoveType;
+import chessengine.ChessGame.board.Board;
+import chessengine.ChessGame.board.Square;
+import chessengine.ChessGame.move.Move;
+import chessengine.ChessGame.move.MoveType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,10 +27,10 @@ public class Pawn extends Piece {
             if (forwardSquare.isEmpty()) {
                 // promotion by moving forward
                 if (fr == 0 || fr == Board.SIZE - 1) {
-                    moves.add(new Move(r, c, fr, c, MoveType.PROMOTION, ChessClient.ChessGame.piece.PieceType.QUEEN));
-                    moves.add(new Move(r, c, fr, c, MoveType.PROMOTION, ChessClient.ChessGame.piece.PieceType.ROOK));
-                    moves.add(new Move(r, c, fr, c, MoveType.PROMOTION, ChessClient.ChessGame.piece.PieceType.BISHOP));
-                    moves.add(new Move(r, c, fr, c, MoveType.PROMOTION, ChessClient.ChessGame.piece.PieceType.KNIGHT));
+                    moves.add(new Move(r, c, fr, c, MoveType.PROMOTION, chessengine.ChessGame.piece.PieceType.QUEEN));
+                    moves.add(new Move(r, c, fr, c, MoveType.PROMOTION, chessengine.ChessGame.piece.PieceType.ROOK));
+                    moves.add(new Move(r, c, fr, c, MoveType.PROMOTION, chessengine.ChessGame.piece.PieceType.BISHOP));
+                    moves.add(new Move(r, c, fr, c, MoveType.PROMOTION, chessengine.ChessGame.piece.PieceType.KNIGHT));
                 } else {
                     moves.add(new Move(r, c, fr, c, MoveType.NORMAL));
 
@@ -57,10 +57,10 @@ public class Pawn extends Piece {
             Square target = board.getSquare(nr, nc);
             if (!target.isEmpty() && target.getPiece().getColor() != this.color) {
                 if (nr == 0 || nr == Board.SIZE - 1) {
-                    moves.add(new Move(r, c, nr, nc, MoveType.PROMOTION, ChessClient.ChessGame.piece.PieceType.QUEEN));
-                    moves.add(new Move(r, c, nr, nc, MoveType.PROMOTION, ChessClient.ChessGame.piece.PieceType.ROOK));
-                    moves.add(new Move(r, c, nr, nc, MoveType.PROMOTION, ChessClient.ChessGame.piece.PieceType.BISHOP));
-                    moves.add(new Move(r, c, nr, nc, MoveType.PROMOTION, ChessClient.ChessGame.piece.PieceType.KNIGHT));
+                    moves.add(new Move(r, c, nr, nc, MoveType.PROMOTION, chessengine.ChessGame.piece.PieceType.QUEEN));
+                    moves.add(new Move(r, c, nr, nc, MoveType.PROMOTION, chessengine.ChessGame.piece.PieceType.ROOK));
+                    moves.add(new Move(r, c, nr, nc, MoveType.PROMOTION, chessengine.ChessGame.piece.PieceType.BISHOP));
+                    moves.add(new Move(r, c, nr, nc, MoveType.PROMOTION, chessengine.ChessGame.piece.PieceType.KNIGHT));
                 } else {
                     moves.add(new Move(r, c, nr, nc, MoveType.CAPTURE));
                 }

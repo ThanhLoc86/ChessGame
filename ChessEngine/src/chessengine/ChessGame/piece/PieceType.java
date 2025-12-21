@@ -1,4 +1,4 @@
-package ChessClient.ChessGame.piece;
+package chessengine.ChessGame.piece;
 
 public enum PieceType {
     KING,

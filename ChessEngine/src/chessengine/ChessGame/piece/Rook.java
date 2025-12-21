@@ -1,14 +1,14 @@
-package ChessClient.ChessGame.piece;
+package chessengine.ChessGame.piece;
 
-import ChessClient.ChessGame.board.Board;
-import ChessClient.ChessGame.board.Square;
-import ChessClient.ChessGame.move.Move;
-import ChessClient.ChessGame.move.MoveType;
+import chessengine.ChessGame.board.Board;
+import chessengine.ChessGame.board.Square;
+import chessengine.ChessGame.move.Move;
+import chessengine.ChessGame.move.MoveType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Queen extends Piece {
-    public Queen(PieceColor color) {
+public class Rook extends Piece {
+    public Rook(PieceColor color) {
         super(color);
     }
 
@@ -17,10 +17,7 @@ public class Queen extends Piece {
         List<Move> moves = new ArrayList<>();
         int r = from.getRow();
         int c = from.getCol();
-        int[][] directions = {
-            {1,0}, {-1,0}, {0,1}, {0,-1},
-            {1,1}, {1,-1}, {-1,1}, {-1,-1}
-        };
+        int[][] directions = { {1,0}, {-1,0}, {0,1}, {0,-1} };
         for (int[] d : directions) {
             int dr = d[0], dc = d[1];
             int nr = r + dr, nc = c + dc;
@@ -43,14 +40,14 @@ public class Queen extends Piece {
 
     @Override
     public String getName() {
-        return "Queen";
+        return "Rook";
     }
 
     @Override
     public Piece copy() {
-        Queen q = new Queen(this.color);
-        q.setHasMoved(this.hasMoved);
-        return q;
+        Rook r = new Rook(this.color);
+        r.setHasMoved(this.hasMoved);
+        return r;
     }
 }
 
