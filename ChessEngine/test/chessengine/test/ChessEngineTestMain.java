@@ -1,4 +1,4 @@
-package ChessClient.test;
+package chessengine.test;
 
 import ChessClient.ChessGame.board.Board;
 import ChessClient.ChessGame.game.Game;
