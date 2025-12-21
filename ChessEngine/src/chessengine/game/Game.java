@@ -1,14 +1,14 @@
-package chessengine.ChessGame.game;
+package chessengine.game;
 
-import chessengine.ChessGame.board.Board;
-import chessengine.ChessGame.board.Square;
-import chessengine.ChessGame.move.Move;
-import chessengine.ChessGame.move.MoveGenerator;
-import chessengine.ChessGame.piece.PieceColor;
-import chessengine.ChessGame.piece.King;
-import chessengine.ChessGame.piece.Pawn;
-import chessengine.ChessGame.move.MoveType;
-import chessengine.ChessGame.piece.Piece;
+import chessengine.board.Board;
+import chessengine.board.Square;
+import chessengine.move.Move;
+import chessengine.move.MoveGenerator;
+import chessengine.piece.PieceColor;
+import chessengine.piece.King;
+import chessengine.piece.Pawn;
+import chessengine.move.MoveType;
+import chessengine.piece.Piece;
 import java.util.Objects;
 import java.util.List;
 
@@ -80,12 +80,12 @@ public class Game {
 
         // promotion
         if (move.getType() == MoveType.PROMOTION && move.getPromotionPiece() != null) {
-            chessengine.ChessGame.piece.PieceType pt = move.getPromotionPiece();
+            chessengine.piece.PieceType pt = move.getPromotionPiece();
             Piece promoted = switch (pt) {
-                case QUEEN -> new chessengine.ChessGame.piece.Queen(moving.getColor());
-                case ROOK -> new chessengine.ChessGame.piece.Rook(moving.getColor());
-                case BISHOP -> new chessengine.ChessGame.piece.Bishop(moving.getColor());
-                case KNIGHT -> new chessengine.ChessGame.piece.Knight(moving.getColor());
+                case QUEEN -> new chessengine.piece.Queen(moving.getColor());
+                case ROOK -> new chessengine.piece.Rook(moving.getColor());
+                case BISHOP -> new chessengine.piece.Bishop(moving.getColor());
+                case KNIGHT -> new chessengine.piece.Knight(moving.getColor());
                 default -> moving;
             };
             promoted.setHasMoved(true);
@@ -93,7 +93,7 @@ public class Game {
         }
 
         // castling: move rook accordingly
-        if (move.getType() == chessengine.ChessGame.move.MoveType.CASTLING) {
+        if (move.getType() == chessengine.move.MoveType.CASTLING) {
             // king moved from fc to tc; determine side
             if (tc > fc) {
                 // king-side: rook from col 7 to tc-1
@@ -148,7 +148,7 @@ public class Game {
         java.util.ArrayList<Move> legal = new java.util.ArrayList<>();
         for (Move m : pseudo) {
             // Castling safety checks: king must not be in check, must not pass through or end on attacked square
-            if (m.getType() == chessengine.ChessGame.move.MoveType.CASTLING) {
+            if (m.getType() == chessengine.move.MoveType.CASTLING) {
                 // if king currently in check, cannot castle
                 if (isKingInCheck(board, color)) {
                     continue;
@@ -181,7 +181,7 @@ public class Game {
             Square from = copy.getSquare(m.getFromRow(), m.getFromCol());
             Square to = copy.getSquare(m.getToRow(), m.getToCol());
             // handle en passant simulation: remove captured pawn
-            if (m.getType() == chessengine.ChessGame.move.MoveType.EN_PASSANT) {
+            if (m.getType() == chessengine.move.MoveType.EN_PASSANT) {
                 copy.getSquare(m.getFromRow(), m.getToCol()).setPiece(null);
             }
             // perform move
@@ -189,20 +189,20 @@ public class Game {
             from.setPiece(null);
 
             // handle promotion simulation
-            if (m.getType() == chessengine.ChessGame.move.MoveType.PROMOTION && m.getPromotionPiece() != null) {
-                chessengine.ChessGame.piece.PieceType pt = m.getPromotionPiece();
+            if (m.getType() == chessengine.move.MoveType.PROMOTION && m.getPromotionPiece() != null) {
+                chessengine.piece.PieceType pt = m.getPromotionPiece();
                 Piece promoted = switch (pt) {
-                    case QUEEN -> new chessengine.ChessGame.piece.Queen(color);
-                    case ROOK -> new chessengine.ChessGame.piece.Rook(color);
-                    case BISHOP -> new chessengine.ChessGame.piece.Bishop(color);
-                    case KNIGHT -> new chessengine.ChessGame.piece.Knight(color);
+                    case QUEEN -> new chessengine.piece.Queen(color);
+                    case ROOK -> new chessengine.piece.Rook(color);
+                    case BISHOP -> new chessengine.piece.Bishop(color);
+                    case KNIGHT -> new chessengine.piece.Knight(color);
                     default -> to.getPiece();
                 };
                 to.setPiece(promoted);
             }
 
             // handle castling simulation: move rook
-            if (m.getType() == chessengine.ChessGame.move.MoveType.CASTLING) {
+            if (m.getType() == chessengine.move.MoveType.CASTLING) {
                 int fr = m.getFromRow();
                 int fc = m.getFromCol();
                 int tc = m.getToCol();

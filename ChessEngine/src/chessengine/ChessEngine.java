@@ -6,7 +6,7 @@ package chessengine;
 
 /**
  *
- * @author loccn & vtnt
+ * @author loccn
  */
 public class ChessEngine {
 
