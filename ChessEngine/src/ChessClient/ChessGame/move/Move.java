@@ -1,4 +1,4 @@
-package chessengine.ChessGame.move;
+package ChessClient.ChessGame.move;
 
 public class Move {
     private final int fromRow;
@@ -6,9 +6,9 @@ public class Move {
     private final int toRow;
     private final int toCol;
     private final MoveType type;
-    private final chessengine.ChessGame.piece.PieceType promotionPiece; // nullable
+    private final ChessClient.ChessGame.piece.PieceType promotionPiece; // nullable
 
-    public Move(int fromRow, int fromCol, int toRow, int toCol, MoveType type, chessengine.ChessGame.piece.PieceType promotionPiece) {
+    public Move(int fromRow, int fromCol, int toRow, int toCol, MoveType type, ChessClient.ChessGame.piece.PieceType promotionPiece) {
         this.fromRow = fromRow;
         this.fromCol = fromCol;
         this.toRow = toRow;
@@ -41,7 +41,7 @@ public class Move {
         return type;
     }
 
-    public chessengine.ChessGame.piece.PieceType getPromotionPiece() {
+    public ChessClient.ChessGame.piece.PieceType getPromotionPiece() {
         return promotionPiece;
     }
 

@@ -1,14 +1,14 @@
-package chessengine.ChessGame.piece;
+package ChessClient.ChessGame.piece;
 
-import chessengine.ChessGame.board.Board;
-import chessengine.ChessGame.board.Square;
-import chessengine.ChessGame.move.Move;
-import chessengine.ChessGame.move.MoveType;
+import ChessClient.ChessGame.board.Board;
+import ChessClient.ChessGame.board.Square;
+import ChessClient.ChessGame.move.Move;
+import ChessClient.ChessGame.move.MoveType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bishop extends Piece {
-    public Bishop(PieceColor color) {
+public class Rook extends Piece {
+    public Rook(PieceColor color) {
         super(color);
     }
 
@@ -17,7 +17,7 @@ public class Bishop extends Piece {
         List<Move> moves = new ArrayList<>();
         int r = from.getRow();
         int c = from.getCol();
-        int[][] directions = { {1,1}, {1,-1}, {-1,1}, {-1,-1} };
+        int[][] directions = { {1,0}, {-1,0}, {0,1}, {0,-1} };
         for (int[] d : directions) {
             int dr = d[0], dc = d[1];
             int nr = r + dr, nc = c + dc;
@@ -40,14 +40,14 @@ public class Bishop extends Piece {
 
     @Override
     public String getName() {
-        return "Bishop";
+        return "Rook";
     }
 
     @Override
     public Piece copy() {
-        Bishop b = new Bishop(this.color);
-        b.setHasMoved(this.hasMoved);
-        return b;
+        Rook r = new Rook(this.color);
+        r.setHasMoved(this.hasMoved);
+        return r;
     }
 }
 

@@ -1,6 +1,6 @@
-package chessengine.ChessGame.game;
+package ChessClient.ChessGame.game;
 
-import chessengine.ChessGame.piece.PieceColor;
+import ChessClient.ChessGame.piece.PieceColor;
 
 public class Player {
     private final String name;

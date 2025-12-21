@@ -1,9 +1,9 @@
-package chessengine.ChessGame.piece;
+package ChessClient.ChessGame.piece;
 
-import chessengine.ChessGame.board.Board;
-import chessengine.ChessGame.board.Square;
-import chessengine.ChessGame.move.Move;
-import chessengine.ChessGame.move.MoveType;
+import ChessClient.ChessGame.board.Board;
+import ChessClient.ChessGame.board.Square;
+import ChessClient.ChessGame.move.Move;
+import ChessClient.ChessGame.move.MoveType;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package chessengine.ChessGame.move;
+package ChessClient.ChessGame.move;
 
 public enum MoveType {
     NORMAL,

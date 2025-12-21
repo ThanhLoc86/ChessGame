@@ -1,13 +1,13 @@
-package chessengine.ChessGame.board;
+package ChessClient.ChessGame.board;
 
-import chessengine.ChessGame.piece.King;
-import chessengine.ChessGame.piece.Pawn;
-import chessengine.ChessGame.piece.Piece;
-import chessengine.ChessGame.piece.PieceColor;
-import chessengine.ChessGame.piece.Rook;
-import chessengine.ChessGame.piece.Knight;
-import chessengine.ChessGame.piece.Bishop;
-import chessengine.ChessGame.piece.Queen;
+import ChessClient.ChessGame.piece.King;
+import ChessClient.ChessGame.piece.Pawn;
+import ChessClient.ChessGame.piece.Piece;
+import ChessClient.ChessGame.piece.PieceColor;
+import ChessClient.ChessGame.piece.Rook;
+import ChessClient.ChessGame.piece.Knight;
+import ChessClient.ChessGame.piece.Bishop;
+import ChessClient.ChessGame.piece.Queen;
 import java.util.Optional;
 
 public class Board {

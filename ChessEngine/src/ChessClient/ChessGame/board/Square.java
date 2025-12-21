@@ -1,6 +1,6 @@
-package chessengine.ChessGame.board;
+package ChessClient.ChessGame.board;
 
-import chessengine.ChessGame.piece.Piece;
+import ChessClient.ChessGame.piece.Piece;
 
 public class Square {
     private final int row;
