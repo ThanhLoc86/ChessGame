@@ -4,19 +4,17 @@ Thumbs.db
 
 # ===== Java =====
 *.class
-*.jar
-*.war
-*.ear
 
-# ===== Maven (optional) =====
+# ===== Maven =====
 target/
 
 # ===== NetBeans =====
 nbproject/private/
+nbproject/private.xml
 build/
 dist/
 
-# ===== Node =====
+# ===== Node (nếu có FE sau này) =====
 node_modules/
 
 # ===== Logs =====
