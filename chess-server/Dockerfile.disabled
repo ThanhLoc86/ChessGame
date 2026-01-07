@@ -23,3 +23,5 @@ EXPOSE 8080
 
 # Run the application
 CMD ["java", "-jar", "target/chess-server-1.0-SNAPSHOT.jar"]
+
+
