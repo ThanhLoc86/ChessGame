@@ -4,6 +4,7 @@ import com.chessgame.chessserver.domain.entity.NguoiDung;
 import com.chessgame.chessserver.repository.NguoiDungRepository;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
@@ -30,30 +31,44 @@ public class JwtHandshakeInterceptor implements HandshakeInterceptor {
     }
 
     @Override
-    public boolean beforeHandshake(ServerHttpRequest request, org.springframework.http.server.ServerHttpResponse response,
-                                   WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
+    public boolean beforeHandshake(ServerHttpRequest request,
+                                ServerHttpResponse response,
+                                WebSocketHandler wsHandler,
+                                Map<String, Object> attributes) {
+
         if (!(request instanceof ServletServerHttpRequest)) return false;
-        HttpServletRequest servletRequest = ((ServletServerHttpRequest) request).getServletRequest();
+
+        HttpServletRequest servletRequest =
+                ((ServletServerHttpRequest) request).getServletRequest();
+
         String token = servletRequest.getParameter("token");
         if (token == null || token.isBlank()) return false;
+
         try {
             String username = jwtUtil.extractUsername(token);
             if (username == null) return false;
+
             UserDetails ud = userDetailsService.loadUserByUsername(username);
+
+            // validate token using username (ensure signature and expiry)
             if (!jwtUtil.validateToken(token, username)) return false;
+
             Optional<NguoiDung> o = nguoiDungRepository.findByTenDangNhap(username);
             if (o.isEmpty()) return false;
+
             attributes.put("user", o.get());
             return true;
+
         } catch (Exception ex) {
             return false;
         }
     }
 
+
     @Override
-    public void afterHandshake(ServerHttpRequest request, org.springframework.http.server.ServerHttpResponse response,
+    public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response,
                                WebSocketHandler wsHandler, Exception exception) {
-        // noop
+        
     }
 }
 
