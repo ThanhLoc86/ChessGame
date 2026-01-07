@@ -5,7 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
-
+import org.springframework.security.core.userdetails.UserDetails;
 import java.security.Key;
 import java.util.Date;
 
@@ -36,14 +36,28 @@ public class JwtUtil {
         return claims.getSubject();
     }
 
-    public boolean validateToken(String token, String username) {
+    public boolean validateToken(String token, UserDetails userDetails) {
         try {
-            String subj = extractUsername(token);
-            return subj != null && subj.equals(username) && !isTokenExpired(token);
-        } catch (Exception ex) {
+            Claims claims = parseClaims(token);
+            String username = claims.getSubject();
+            return username.equals(userDetails.getUsername())
+                && claims.getExpiration().after(new Date());
+        } catch (Exception e) {
             return false;
         }
     }
+    
+    // Backwards-compatible overload: validate by username string
+    public boolean validateToken(String token, String username) {
+        try {
+            Claims claims = parseClaims(token);
+            String subj = claims.getSubject();
+            return subj != null && subj.equals(username) && claims.getExpiration().after(new Date());
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
 
     private Claims parseClaims(String token) {
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
