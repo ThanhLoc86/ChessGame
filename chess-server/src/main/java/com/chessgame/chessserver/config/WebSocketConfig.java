@@ -31,8 +31,12 @@ public class WebSocketConfig implements WebSocketConfigurer {
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		registry.addHandler(chessWebSocketHandler, "/ws/game")
 				.addInterceptors(jwtHandshakeInterceptor)
-				.setAllowedOrigins(allowedOrigins);
+				.setAllowedOriginPatterns(
+					"http://localhost:5173",
+					"https://chessgame-production-*.up.railway.app"
+				);
 	}
+
 }
 
 
