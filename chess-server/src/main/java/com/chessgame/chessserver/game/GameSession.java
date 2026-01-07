@@ -1,98 +1,71 @@
 package com.chessgame.chessserver.game;
 
-import org.springframework.web.socket.WebSocketSession;
-import chessengine.game.Game;
-import chessengine.piece.PieceColor;
-import chessengine.move.Move;
+import com.chessgame.chessserver.domain.entity.NguoiDung;
+import java.time.LocalDateTime;
 
 /**
- * Represents a single chess match (room).
- * - Holds the room id and references to the two player sessions (white / black).
- * - Owns an instance of the chessengine Game which contains board state and move validation.
- *
- * Note: This class does NOT perform WebSocket I/O. Sessions are stored as references so higher-level
- * services can route messages to the correct participants.
+ * Represents the canonical (type-safe) state of a finished or ongoing game.
+ * This class does NOT depend on WebSocket, repositories or IO. It only holds game state.
  */
 public class GameSession {
 
 	private final String roomId;
-	private volatile WebSocketSession playerWhite;
-	private volatile WebSocketSession playerBlack;
-	private final Game game;
-	private int moveCount = 0;
+	private NguoiDung whitePlayer;
+	private NguoiDung blackPlayer;
+	private LocalDateTime startTime;
+	private LocalDateTime endTime;
+	private GameResult result;
 
-	/**
-	 * Create a new GameSession with a fresh chessengine.Game.
-	 */
 	public GameSession(String roomId) {
 		this.roomId = roomId;
-		this.game = new Game();
 	}
 
 	public String getRoomId() {
 		return roomId;
 	}
 
-	public Game getGame() {
-		return game;
+	public NguoiDung getWhitePlayer() {
+		return whitePlayer;
 	}
 
-	/**
-	 * Add a player to the session.
-	 * If white seat is empty the player is assigned white, otherwise assigned black if available.
-	 * Returns the assigned color as "WHITE" or "BLACK", or null if the room is already full.
-	 */
-	public synchronized String addPlayer(WebSocketSession session) {
-		if (playerWhite == null) {
-			playerWhite = session;
-			return "WHITE";
-		}
-		if (playerBlack == null) {
-			playerBlack = session;
-			return "BLACK";
-		}
-		return null;
+	public void setWhitePlayer(NguoiDung whitePlayer) {
+		this.whitePlayer = whitePlayer;
 	}
 
-	/**
-	 * Remove a player reference if it matches the provided session.
-	 */
-	public synchronized void removePlayer(WebSocketSession session) {
-		if (session == null) return;
-		if (session.equals(playerWhite)) playerWhite = null;
-		if (session.equals(playerBlack)) playerBlack = null;
+	public NguoiDung getBlackPlayer() {
+		return blackPlayer;
 	}
 
-	/**
-	 * Returns true when both player slots are occupied.
-	 */
-	public synchronized boolean isFull() {
-		return playerWhite != null && playerBlack != null;
+	public void setBlackPlayer(NguoiDung blackPlayer) {
+		this.blackPlayer = blackPlayer;
 	}
 
-	/**
-	 * Apply a move using the chess-engine Game.
-	 * The chessengine is authoritative: it will throw IllegalArgumentException for illegal moves.
-	 */
-	public synchronized void applyMove(Move move) {
-		game.applyMove(move);
-		moveCount++;
+	public LocalDateTime getStartTime() {
+		return startTime;
 	}
 
-	/**
-	 * Return the active color to move according to internal move count.
-	 * Starts with WHITE to move (moveCount == 0).
-	 */
-	public synchronized PieceColor getActiveColor() {
-		return (moveCount % 2 == 0) ? PieceColor.WHITE : PieceColor.BLACK;
+	public void setStartTime(LocalDateTime startTime) {
+		this.startTime = startTime;
 	}
 
-	public WebSocketSession getPlayerWhite() {
-		return playerWhite;
+	public LocalDateTime getEndTime() {
+		return endTime;
 	}
 
-	public WebSocketSession getPlayerBlack() {
-		return playerBlack;
+	public void setEndTime(LocalDateTime endTime) {
+		this.endTime = endTime;
+	}
+
+	public GameResult getResult() {
+		return result;
+	}
+
+	public void setResult(GameResult result) {
+		this.result = result;
+	}
+
+	public boolean isGameOver() {
+		return this.result != null;
 	}
 }
 

@@ -13,13 +13,18 @@ public class Queen extends Piece {
     }
 
     @Override
+    public PieceType getType() {
+        return PieceType.QUEEN;
+    }
+
+    @Override
     public List<Move> generateLegalMoves(Square from, Board board) {
         List<Move> moves = new ArrayList<>();
         int r = from.getRow();
         int c = from.getCol();
         int[][] directions = {
-            {1,0}, {-1,0}, {0,1}, {0,-1},
-            {1,1}, {1,-1}, {-1,1}, {-1,-1}
+                { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 },
+                { 1, 1 }, { 1, -1 }, { -1, 1 }, { -1, -1 }
         };
         for (int[] d : directions) {
             int dr = d[0], dc = d[1];
@@ -53,5 +58,3 @@ public class Queen extends Piece {
         return q;
     }
 }
-
-

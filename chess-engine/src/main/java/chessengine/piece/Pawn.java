@@ -13,6 +13,11 @@ public class Pawn extends Piece {
     }
 
     @Override
+    public PieceType getType() {
+        return PieceType.PAWN;
+    }
+
+    @Override
     public List<Move> generateLegalMoves(Square from, Board board) {
         List<Move> moves = new ArrayList<>();
         int r = from.getRow();
@@ -53,7 +58,8 @@ public class Pawn extends Piece {
         for (int dc : dcCandidates) {
             int nc = c + dc;
             int nr = r + dir;
-            if (nr < 0 || nr >= Board.SIZE || nc < 0 || nc >= Board.SIZE) continue;
+            if (nr < 0 || nr >= Board.SIZE || nc < 0 || nc >= Board.SIZE)
+                continue;
             Square target = board.getSquare(nr, nc);
             if (!target.isEmpty() && target.getPiece().getColor() != this.color) {
                 if (nr == 0 || nr == Board.SIZE - 1) {
@@ -78,7 +84,8 @@ public class Pawn extends Piece {
                     // ensure adjacent pawn exists and is opponent
                     if (c + dc >= 0 && c + dc < Board.SIZE) {
                         Square adj = board.getSquare(r, c + dc);
-                        if (!adj.isEmpty() && adj.getPiece() instanceof Pawn && adj.getPiece().getColor() != this.color) {
+                        if (!adj.isEmpty() && adj.getPiece() instanceof Pawn
+                                && adj.getPiece().getColor() != this.color) {
                             moves.add(new Move(r, c, nr, nc, MoveType.EN_PASSANT));
                         }
                     }
@@ -100,5 +107,3 @@ public class Pawn extends Piece {
         return p;
     }
 }
-
-

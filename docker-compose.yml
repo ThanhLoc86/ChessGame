@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: chess_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: thanhloc2204
+      MYSQL_DATABASE: chess_game
+      MYSQL_USER: chess_user
+      MYSQL_PASSWORD: chess_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  backend:
+    build: ./chess-server
+    container_name: chess_backend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/chess_game?useSSL=false&serverTimezone=Asia/Ho_Chi_Minh
+      SPRING_DATASOURCE_USERNAME: chess_user
+      SPRING_DATASOURCE_PASSWORD: chess_pass
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      DDL_AUTO: update
+      SHOW_SQL: false
+      CORS_ALLOWED_ORIGINS: http://localhost:5173,http://localhost:3000
+      JWT_SECRET: your-development-jwt-secret-key
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  mysql_data:

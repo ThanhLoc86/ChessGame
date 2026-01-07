@@ -13,17 +13,23 @@ public class Knight extends Piece {
     }
 
     @Override
+    public PieceType getType() {
+        return PieceType.KNIGHT;
+    }
+
+    @Override
     public List<Move> generateLegalMoves(Square from, Board board) {
         List<Move> moves = new ArrayList<>();
         int r = from.getRow();
         int c = from.getCol();
         int[][] deltas = {
-            {2,1},{2,-1},{-2,1},{-2,-1},
-            {1,2},{1,-2},{-1,2},{-1,-2}
+                { 2, 1 }, { 2, -1 }, { -2, 1 }, { -2, -1 },
+                { 1, 2 }, { 1, -2 }, { -1, 2 }, { -1, -2 }
         };
         for (int[] d : deltas) {
             int nr = r + d[0], nc = c + d[1];
-            if (nr < 0 || nr >= Board.SIZE || nc < 0 || nc >= Board.SIZE) continue;
+            if (nr < 0 || nr >= Board.SIZE || nc < 0 || nc >= Board.SIZE)
+                continue;
             Square dest = board.getSquare(nr, nc);
             if (dest.isEmpty()) {
                 moves.add(new Move(r, c, nr, nc, MoveType.NORMAL));
@@ -46,5 +52,3 @@ public class Knight extends Piece {
         return k;
     }
 }
-
-

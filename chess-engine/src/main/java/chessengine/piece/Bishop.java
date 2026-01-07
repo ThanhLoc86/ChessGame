@@ -13,11 +13,16 @@ public class Bishop extends Piece {
     }
 
     @Override
+    public PieceType getType() {
+        return PieceType.BISHOP;
+    }
+
+    @Override
     public List<Move> generateLegalMoves(Square from, Board board) {
         List<Move> moves = new ArrayList<>();
         int r = from.getRow();
         int c = from.getCol();
-        int[][] directions = { {1,1}, {1,-1}, {-1,1}, {-1,-1} };
+        int[][] directions = { { 1, 1 }, { 1, -1 }, { -1, 1 }, { -1, -1 } };
         for (int[] d : directions) {
             int dr = d[0], dc = d[1];
             int nr = r + dr, nc = c + dc;
@@ -50,5 +55,3 @@ public class Bishop extends Piece {
         return b;
     }
 }
-
-

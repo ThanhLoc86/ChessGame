@@ -22,8 +22,17 @@ public class Game {
         this.board = new Board();
     }
 
+    public Game(Board board, boolean whiteToMove) {
+        this.board = board;
+        this.whiteToMove = whiteToMove;
+    }
+
     public Board getBoard() {
         return board;
+    }
+
+    public PieceColor getActiveColor() {
+        return whiteToMove ? PieceColor.WHITE : PieceColor.BLACK;
     }
 
     /**
@@ -31,7 +40,8 @@ public class Game {
      * TODO: validate more conditions (check, pins, promotion, etc.)
      */
     public void applyMove(Move move) {
-        // Only accept moves that are legal (do not leave king in check, and satisfy castling rules)
+        // Only accept moves that are legal (do not leave king in check, and satisfy
+        // castling rules)
         PieceColor currentColor = whiteToMove ? PieceColor.WHITE : PieceColor.BLACK;
         List<Move> legalMoves = legalMovesForColor(currentColor);
         Move matchedMove = null;
@@ -101,19 +111,22 @@ public class Game {
                 Square rookTo = board.getSquare(fr, tc - 1);
                 rookTo.setPiece(rookFrom.getPiece());
                 rookFrom.setPiece(null);
-                if (rookTo.getPiece() != null) rookTo.getPiece().setHasMoved(true);
+                if (rookTo.getPiece() != null)
+                    rookTo.getPiece().setHasMoved(true);
             } else {
                 // queen-side: rook from col 0 to tc+1
                 Square rookFrom = board.getSquare(fr, 0);
                 Square rookTo = board.getSquare(fr, tc + 1);
                 rookTo.setPiece(rookFrom.getPiece());
                 rookFrom.setPiece(null);
-                if (rookTo.getPiece() != null) rookTo.getPiece().setHasMoved(true);
+                if (rookTo.getPiece() != null)
+                    rookTo.getPiece().setHasMoved(true);
             }
         }
 
         // mark moved
-        if (moving != null) moving.setHasMoved(true);
+        if (moving != null)
+            moving.setHasMoved(true);
 
         // update en passant target
         board.clearEnPassant();
@@ -131,7 +144,8 @@ public class Game {
     }
 
     /**
-     * Return all legal moves for current player (filters out moves that leave own king in check).
+     * Return all legal moves for current player (filters out moves that leave own
+     * king in check).
      */
     public List<Move> legalMovesForCurrentPlayer() {
         PieceColor movingColor = whiteToMove ? PieceColor.WHITE : PieceColor.BLACK;
@@ -147,7 +161,8 @@ public class Game {
         List<Move> pseudo = generator.generateAllMoves(board, forWhite);
         java.util.ArrayList<Move> legal = new java.util.ArrayList<>();
         for (Move m : pseudo) {
-            // Castling safety checks: king must not be in check, must not pass through or end on attacked square
+            // Castling safety checks: king must not be in check, must not pass through or
+            // end on attacked square
             if (m.getType() == chessengine.move.MoveType.CASTLING) {
                 // if king currently in check, cannot castle
                 if (isKingInCheck(board, color)) {
@@ -167,14 +182,17 @@ public class Game {
                     Square toTmp = tmp.getSquare(fr, stepCol);
                     toTmp.setPiece(fromTmp.getPiece());
                     fromTmp.setPiece(null);
-                    // do not move rook in this simulation; only king movement matters for checked-through rule
+                    // do not move rook in this simulation; only king movement matters for
+                    // checked-through rule
                     if (isKingInCheck(tmp, color)) {
                         blockedByAttack = true;
                         break;
                     }
                 }
-                if (blockedByAttack) continue;
-                // if passed all checks, now perform full simulation (including rook) and final check below
+                if (blockedByAttack)
+                    continue;
+                // if passed all checks, now perform full simulation (including rook) and final
+                // check below
             }
 
             Board copy = board.copy();
@@ -245,7 +263,8 @@ public class Game {
 
     /**
      * Check if the king of the given color is in check on the provided board.
-     * A king is in check if any opponent pseudo-legal move attacks the king's square.
+     * A king is in check if any opponent pseudo-legal move attacks the king's
+     * square.
      */
     boolean isKingInCheck(Board boardToCheck, PieceColor color) {
         // find king
@@ -260,7 +279,8 @@ public class Game {
                     break;
                 }
             }
-            if (kingR != -1) break;
+            if (kingR != -1)
+                break;
         }
         if (kingR == -1) {
             // no king found; treat as not in check (could also throw)
@@ -272,10 +292,9 @@ public class Game {
         boolean forWhite = (color == PieceColor.WHITE);
         List<Move> opponentMoves = gen.generateAllMoves(boardToCheck, !forWhite);
         for (Move m : opponentMoves) {
-            if (m.getToRow() == kingR && m.getToCol() == kingC) return true;
+            if (m.getToRow() == kingR && m.getToCol() == kingC)
+                return true;
         }
         return false;
     }
 }
-
-

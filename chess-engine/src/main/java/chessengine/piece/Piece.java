@@ -17,8 +17,11 @@ public abstract class Piece {
         return color;
     }
 
+    public abstract PieceType getType();
+
     /**
-     * Generate legal moves for this piece from the given square on the provided board.
+     * Generate legal moves for this piece from the given square on the provided
+     * board.
      * Implementation left as TODO in skeleton for complex rules.
      */
     public abstract List<Move> generateLegalMoves(Square from, Board board);
@@ -37,9 +40,8 @@ public abstract class Piece {
     }
 
     /**
-     * Create a copy of this piece (used by Board.copy() to avoid mutating originals).
+     * Create a copy of this piece (used by Board.copy() to avoid mutating
+     * originals).
      */
     public abstract Piece copy();
 }
-
-

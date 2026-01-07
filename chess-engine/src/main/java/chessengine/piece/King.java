@@ -13,16 +13,23 @@ public class King extends Piece {
     }
 
     @Override
+    public PieceType getType() {
+        return PieceType.KING;
+    }
+
+    @Override
     public List<Move> generateLegalMoves(Square from, Board board) {
         List<Move> moves = new ArrayList<>();
         int r = from.getRow();
         int c = from.getCol();
         for (int dr = -1; dr <= 1; dr++) {
             for (int dc = -1; dc <= 1; dc++) {
-                if (dr == 0 && dc == 0) continue;
+                if (dr == 0 && dc == 0)
+                    continue;
                 int nr = r + dr;
                 int nc = c + dc;
-                if (nr < 0 || nr >= Board.SIZE || nc < 0 || nc >= Board.SIZE) continue;
+                if (nr < 0 || nr >= Board.SIZE || nc < 0 || nc >= Board.SIZE)
+                    continue;
                 Square dest = board.getSquare(nr, nc);
                 if (dest.isEmpty()) {
                     moves.add(new Move(r, c, nr, nc, MoveType.NORMAL));
@@ -48,12 +55,15 @@ public class King extends Piece {
     private boolean canCastleShort(Board board, int kingRow) {
         // rook at col 7
         Square rookSquare = board.getSquare(kingRow, 7);
-        if (rookSquare.isEmpty()) return false;
+        if (rookSquare.isEmpty())
+            return false;
         Piece rook = rookSquare.getPiece();
-        if (!rook.getName().equals("Rook") || rook.getColor() != this.color || rook.hasMoved()) return false;
+        if (!rook.getName().equals("Rook") || rook.getColor() != this.color || rook.hasMoved())
+            return false;
         // squares between king and rook must be empty (cols 5 and 6)
         for (int col = 5; col <= 6; col++) {
-            if (!board.getSquare(kingRow, col).isEmpty()) return false;
+            if (!board.getSquare(kingRow, col).isEmpty())
+                return false;
         }
         return true;
     }
@@ -61,12 +71,15 @@ public class King extends Piece {
     private boolean canCastleLong(Board board, int kingRow) {
         // rook at col 0
         Square rookSquare = board.getSquare(kingRow, 0);
-        if (rookSquare.isEmpty()) return false;
+        if (rookSquare.isEmpty())
+            return false;
         Piece rook = rookSquare.getPiece();
-        if (!rook.getName().equals("Rook") || rook.getColor() != this.color || rook.hasMoved()) return false;
+        if (!rook.getName().equals("Rook") || rook.getColor() != this.color || rook.hasMoved())
+            return false;
         // squares between king and rook must be empty (cols 1,2,3)
         for (int col = 1; col <= 3; col++) {
-            if (!board.getSquare(kingRow, col).isEmpty()) return false;
+            if (!board.getSquare(kingRow, col).isEmpty())
+                return false;
         }
         return true;
     }
@@ -83,5 +96,3 @@ public class King extends Piece {
         return k;
     }
 }
-
-
