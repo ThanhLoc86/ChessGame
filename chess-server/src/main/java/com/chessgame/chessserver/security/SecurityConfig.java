@@ -59,23 +59,28 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-
-      
+    
+        config.setAllowCredentials(true);
+    
         config.setAllowedOrigins(java.util.List.of(
             "http://localhost:5173"
-      
         ));
-
+    
         config.setAllowedMethods(java.util.List.of(
-            "GET","POST","PUT","DELETE","OPTIONS"
+            "GET", "POST", "PUT", "DELETE", "OPTIONS"
         ));
+    
         config.setAllowedHeaders(java.util.List.of("*"));
-        config.setAllowCredentials(true);
-
+    
+       
+        config.setExposedHeaders(java.util.List.of("Authorization"));
+    
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
+    
         return source;
     }
+    
 
     @Bean
     public AuthenticationManager authenticationManager(
