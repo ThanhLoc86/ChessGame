@@ -7,6 +7,8 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -17,10 +19,14 @@ public class JwtHandshakeInterceptor implements HandshakeInterceptor {
 
     private final JwtUtil jwtUtil;
     private final NguoiDungRepository nguoiDungRepository;
+    private final UserDetailsService userDetailsService;
 
-    public JwtHandshakeInterceptor(JwtUtil jwtUtil, NguoiDungRepository nguoiDungRepository) {
+    public JwtHandshakeInterceptor(JwtUtil jwtUtil,
+                                   NguoiDungRepository nguoiDungRepository,
+                                   UserDetailsService userDetailsService) {
         this.jwtUtil = jwtUtil;
         this.nguoiDungRepository = nguoiDungRepository;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -33,6 +39,7 @@ public class JwtHandshakeInterceptor implements HandshakeInterceptor {
         try {
             String username = jwtUtil.extractUsername(token);
             if (username == null) return false;
+            UserDetails ud = userDetailsService.loadUserByUsername(username);
             if (!jwtUtil.validateToken(token, username)) return false;
             Optional<NguoiDung> o = nguoiDungRepository.findByTenDangNhap(username);
             if (o.isEmpty()) return false;
