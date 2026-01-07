@@ -26,7 +26,7 @@ export default function Login() {
       <div className="card auth-card">
         <div className="auth-brand">
           <div style={{ width: 80, height: 80, background: 'var(--accent)', borderRadius: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: 32, boxShadow: '0 0 30px rgba(99, 102, 241, 0.3)' }}>♟︎</div>
-          <h2 style={{ marginTop: 24, marginBottom: 8, fontSize: 24 }}>Chess Royale</h2>
+          <h2 style={{ marginTop: 24, marginBottom: 8, fontSize: 24 }}>Chess Game</h2>
           <p style={{ color: 'var(--text-dim)', textAlign: 'center', fontSize: 14, lineHeight: 1.6 }}>Trang web cờ vua trực tuyến</p>
         </div>
         <div className="auth-form">
